@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#EDF0F7">
+<title>无限邮箱 · 收件箱</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23627BF6'/%3E%3Cpath d='M14 24h36v20a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4z' fill='none' stroke='white' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M14 26l18 12 18-12' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13h4.2l1.6 2.6h6.4L16.8 13H21"/><path d="M5.4 4.8h13.2l2.4 7.2V18a1.8 1.8 0 0 1-1.8 1.8H4.8A1.8 1.8 0 0 1 3 18v-6z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5.5v13M5.5 12h13"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9.5 7V5h5v2M6.5 7l.9 12a2 2 0 0 0 2 1.9h5.2a2 2 0 0 0 2-1.9l.9-12"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="M20 11.5l-7.6 7.6a4.5 4.5 0 0 1-6.4-6.4l7.5-7.5a3 3 0 0 1 4.3 4.3l-7.6 7.6a1.5 1.5 0 0 1-2.1-2.1l6.9-6.9"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4.5v4.2h-4.2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.2"/><path d="M20 20l-4.4-4.4"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14.5 16.8l4.5-4.8-4.5-4.8"/><path d="M19 12H9.2"/><path d="M12 19.2H6.4A2.4 2.4 0 0 1 4 16.8V7.2a2.4 2.4 0 0 1 2.4-2.4H12"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v10.6"/><path d="M8.2 11l3.8 3.8L15.8 11"/><path d="M5 19.5h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.8l4.2 4.2L19 6.5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.6 6.8l8.4 6 8.4-6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.8" y="10.5" width="14.4" height="9.7" rx="2.2"/><path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20h4.2L19 9.2a2.1 2.1 0 0 0 0-3l-1.2-1.2a2.1 2.1 0 0 0-3 0L4 15.8z"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.8" width="11" height="18.4" rx="2.4"/><path d="M10.8 18.4h2.4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M3.4 20a5.6 5.6 0 0 1 11.2 0"/><path d="M16.4 5.2a3.4 3.4 0 0 1 0 6.6"/><path d="M16.6 13.4a5.6 5.6 0 0 1 4 6.6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.4c0 4.3-2.9 7.9-7 9.6-4.1-1.7-7-5.3-7-9.6V6z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M3.4 12h17.2"/><path d="M12 3.4c2.3 2.3 3.5 5.4 3.5 8.6S14.3 18.3 12 20.6c-2.3-2.3-3.5-5.4-3.5-8.6S9.7 5.7 12 3.4z"/></symbol>
+</svg>
+
+<!-- ============================ 登录 / 注册 ============================ -->
+<div id="login" class="login" hidden>
+  <div class="login-wrap">
+    <aside class="login-hero">
+      <div class="hero-top">
+        <span class="logo-mark">∞</span>
+        <span class="hero-brand">无限邮箱</span>
+      </div>
+      <div class="hero-body">
+        <p class="hero-eyebrow">一个域名 · 无限个收件地址</p>
+        <h1>一个账号，<br>管住所有注册邮件</h1>
+        <p class="hero-desc">每个账号只占一个主邮箱名，后面用 <b>bili1</b>、<b>bili-shop</b> 这样的子地址就能无限收信，全部归到同一个收件箱。</p>
+        <ul class="hero-list">
+          <li><span class="hero-tick"><svg><use href="#i-check"/></svg></span>主邮箱 + 子地址归并，不再一堆账号</li>
+          <li><span class="hero-tick"><svg><use href="#i-check"/></svg></span>账号之间完全隔离，互不可见</li>
+          <li><span class="hero-tick"><svg><use href="#i-check"/></svg></span>手机号绑定，一人一号</li>
+        </ul>
+      </div>
+      <p class="hero-foot">只收不发 · 数据自持 · 零依赖部署</p>
+    </aside>
+
+    <div class="login-card">
+      <span class="logo-mark sm">∞</span>
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-tab="login">登录</button>
+        <button type="button" class="auth-tab" data-tab="register">注册</button>
+      </div>
+
+      <form id="login-form" class="auth-form" autocomplete="on">
+        <label class="inputbox">
+          <svg class="inputbox-icon"><use href="#i-mail"/></svg>
+          <input id="login-email" type="email" placeholder="QQ 邮箱" autocomplete="username" required>
+        </label>
+        <label class="inputbox">
+          <svg class="inputbox-icon"><use href="#i-lock"/></svg>
+          <input id="login-password" type="password" placeholder="密码" autocomplete="current-password" required>
+        </label>
+        <button type="submit" class="btn btn-primary btn-block" id="login-btn">登 录</button>
+        <button type="button" class="auth-link" id="btn-forgot">忘记密码？用邮箱验证码找回</button>
+        <p class="login-hint" id="login-hint">首次登录：root 账号是 <code id="hint-root">admin</code>，密码是部署时设置的 <code>ACCESS_TOKEN</code>。</p>
+      </form>
+
+      <form id="register-form" class="auth-form" autocomplete="on" hidden>
+        <label class="inputbox">
+          <svg class="inputbox-icon"><use href="#i-mail"/></svg>
+          <input id="reg-email" type="email" placeholder="QQ 邮箱，如 123456@qq.com" autocomplete="username" required>
+        </label>
+        <div class="verify-block">
+          <button type="button" class="btn btn-ghost btn-block" id="reg-verify-btn">① 发送验证码</button>
+          <div class="verify-panel" id="reg-verify-panel" hidden>
+            <p class="verify-tip" id="reg-verify-tip">验证码已发到你的邮箱，把邮件里的 <b>6 位数字</b>填进来：</p>
+            <div class="verify-code-row" id="reg-code-row">
+              <input id="reg-code" inputmode="numeric" maxlength="6" placeholder="6 位验证码" autocomplete="one-time-code">
+              <button type="button" class="btn btn-primary btn-sm" id="reg-code-btn">确认</button>
+            </div>
+            <p class="verify-state" id="reg-verify-state">验证码 10 分钟内有效</p>
+            <button type="button" class="btn btn-ghost btn-sm" id="reg-code-resend">没收到？重新发送</button>
+          </div>
+        </div>
+        <label class="inputbox">
+          <svg class="inputbox-icon"><use href="#i-lock"/></svg>
+          <input id="reg-password" type="password" placeholder="密码（至少 8 位）" autocomplete="new-password" required>
+        </label>
+        <label class="inputbox">
+          <svg class="inputbox-icon"><use href="#i-lock"/></svg>
+          <input id="reg-password2" type="password" placeholder="再输一次密码" autocomplete="new-password" required>
+        </label>
+        <label class="inputbox mailbox-box">
+          <input id="reg-mailbox" placeholder="想要的邮箱名，如 bili" autocomplete="off" required>
+          <span class="inputbox-suffix" id="reg-domain">@example.com</span>
+        </label>
+        <label class="inputbox">
+          <svg class="inputbox-icon"><use href="#i-phone"/></svg>
+          <input id="reg-phone" inputmode="numeric" placeholder="手机号（可选，11 位）" autocomplete="tel">
+        </label>
+        <label class="agree"><input type="checkbox" id="reg-agree"> 我已阅读并同意服务条款与隐私政策</label>
+        <button type="submit" class="btn btn-primary btn-block" id="register-btn">创建账号</button>
+        <p class="login-hint" id="register-hint">注册后这个邮箱名就是你的主邮箱；bili1、bili-shop 等子地址自动归到它下面。</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ 找回密码 ============================ -->
+<dialog id="reset-dialog" class="dialog">
+  <form id="reset-form">
+    <div class="dialog-head">
+      <h3>找回密码</h3>
+      <button type="button" class="icon-btn" id="btn-close-reset"><svg><use href="#i-x"/></svg></button>
+    </div>
+    <div class="dialog-body">
+      <label class="field">
+        <span>登录邮箱</span>
+        <input id="reset-email" type="email" placeholder="注册时用的 QQ 邮箱" autocomplete="username">
+      </label>
+      <div class="rebind-line">
+        <button type="button" class="btn btn-ghost btn-sm" id="reset-send">发送验证码</button>
+        <span class="verify-state" id="reset-state">验证码 10 分钟内有效</span>
+      </div>
+      <label class="field">
+        <span>验证码</span>
+        <input id="reset-code" inputmode="numeric" maxlength="6" placeholder="邮件里的 6 位数字" autocomplete="one-time-code">
+      </label>
+      <label class="field">
+        <span>新密码</span>
+        <input id="reset-password" type="password" placeholder="至少 8 位" autocomplete="new-password">
+      </label>
+      <div class="dialog-info" id="reset-info"></div>
+    </div>
+    <div class="dialog-foot">
+      <button type="button" class="btn btn-ghost" id="btn-cancel-reset">取消</button>
+      <button type="submit" class="btn btn-primary" id="reset-submit">重设密码</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ============================ 主界面 ============================ -->
+<div id="app" class="app" hidden>
+  <header class="topbar">
+    <button class="icon-btn only-mobile" id="btn-menu" title="邮箱列表"><svg><use href="#i-menu"/></svg></button>
+
+    <div class="brand">
+      <span class="brand-mark">∞</span>
+      <span class="brand-name">无限邮箱</span>
+    </div>
+
+    <div class="account">
+      <span class="user-chip" id="user-chip">
+        <span class="user-avatar" id="user-avatar">U</span>
+        <span class="user-meta">
+          <b id="user-name">—</b>
+          <small id="user-mail">—</small>
+        </span>
+      </span>
+    </div>
+
+    <div class="topbar-right">
+      <div class="searchbox">
+        <svg class="searchbox-icon"><use href="#i-search"/></svg>
+        <input id="search" type="search" placeholder="搜索发件人、主题、内容" autocomplete="off">
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="btn-admin" title="管理后台" hidden><svg><use href="#i-shield"/></svg></button>
+        <button class="icon-btn" id="btn-refresh" title="刷新"><svg><use href="#i-refresh"/></svg></button>
+        <button class="icon-btn" id="btn-settings" title="账号设置"><svg><use href="#i-settings"/></svg></button>
+        <button class="icon-btn" id="btn-logout" title="退出登录"><svg><use href="#i-logout"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <button class="side-cta" id="btn-new-mailbox" type="button">
+        <svg><use href="#i-plus"/></svg>
+        <span>新建邮箱</span>
+      </button>
+
+      <nav class="side-nav">
+        <button class="nav-item active" id="all-mail" data-mailbox="">
+          <svg class="nav-ico"><use href="#i-inbox"/></svg>
+          <span class="nav-label">全部邮件</span>
+          <span class="nav-count" id="unread-all">0</span>
+        </button>
+      </nav>
+
+      <div class="side-section">
+        <div class="side-section-head">
+          <span>我的邮箱</span>
+          <span class="pill" id="mailbox-count">0</span>
+        </div>
+        <div class="mailbox-list" id="mailbox-list"></div>
+      </div>
+
+      <div class="side-section side-section--ext" id="ext-section">
+        <div class="side-section-head">
+          <span>一邮多用</span>
+          <button class="link-btn" id="btn-add-external" type="button">+ 接入</button>
+        </div>
+        <div class="ext-list" id="ext-list"></div>
+      </div>
+
+      <div class="sidebar-foot">
+        <div class="foot-row"><span>邮件总数</span><b id="stat-messages">0</b></div>
+        <div class="foot-row"><span>子地址</span><b id="stat-subs">0</b></div>
+        <div class="foot-row"><span>占用空间</span><b id="stat-bytes">0 B</b></div>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <div class="panes">
+        <section class="list" id="list">
+          <div class="list-head">
+            <div class="list-title-wrap">
+              <h2 id="list-title">全部邮件</h2>
+              <span class="list-sub" id="list-sub">0 封</span>
+            </div>
+            <div class="list-head-actions">
+              <button class="tool-btn" id="btn-read-all">全部已读</button>
+              <button class="tool-btn only-mobile" id="btn-close-list">关闭</button>
+            </div>
+          </div>
+          <div class="list-body" id="list-body">
+            <div id="list-rows"></div>
+            <div class="empty" id="list-empty" hidden>
+              <div class="empty-art">
+                <svg><use href="#i-mail"/></svg>
+              </div>
+              <p class="empty-title">这里还没有邮件</p>
+              <p class="empty-sub">把收件地址填到注册表单里，验证码和通知就会出现在这里。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="reader" id="reader">
+          <div class="reader-empty" id="reader-empty">
+            <div class="reader-empty-art">
+              <svg><use href="#i-mail"/></svg>
+            </div>
+            <h2>选择一封邮件开始阅读</h2>
+            <p>邮件收到后会自动出现在左侧列表，并通过浏览器实时推送，无需手动刷新。</p>
+            <div class="reader-address" id="reader-address-box">
+              <code id="reader-address">未设置邮箱</code>
+              <button class="btn btn-ghost btn-sm" id="btn-copy-default"><svg><use href="#i-copy"/></svg> 复制</button>
+            </div>
+            <ol class="reader-steps">
+              <li>账号自带一个主邮箱，例如 <code>bili@example.com</code>。</li>
+              <li>任意 <code>bili1@</code> / <code>bili-shop@</code> 也会投递到同一个收件箱，自动记为子地址。</li>
+              <li>验证码、登录链接、订阅通知都进这里，子地址随时可以删。</li>
+            </ol>
+          </div>
+
+          <article class="reader-article" id="reader-article" hidden>
+            <div class="reader-toolbar">
+              <button class="tool-btn" id="btn-eml" title="下载原始邮件 .eml"><svg><use href="#i-download"/></svg>下载 .eml</button>
+              <button class="tool-btn is-danger" id="btn-delete" title="删除这封邮件"><svg><use href="#i-trash"/></svg>删除</button>
+              <span class="tool-spacer"></span>
+              <button class="tool-btn only-mobile" id="btn-close-reader"><svg><use href="#i-x"/></svg>关闭</button>
+            </div>
+
+            <header class="reader-head">
+              <h2 class="reader-subject" id="reader-subject"></h2>
+              <div class="reader-ext" id="reader-ext" hidden></div>
+              <div class="meta-rows">
+                <div class="meta-row">
+                  <span class="meta-label">发件人</span>
+                  <span class="meta-value"><b id="reader-from-name"></b><span class="meta-addr" id="reader-from-addr"></span></span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">收件人</span>
+                  <span class="meta-value"><span id="reader-to"></span></span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">时间</span>
+                  <span class="meta-value"><span id="reader-date"></span></span>
+                </div>
+              </div>
+            </header>
+
+            <div class="attachments" id="attachments" hidden></div>
+
+            <div class="reader-body" id="reader-body">
+              <iframe id="mail-frame" class="mail-frame" sandbox="allow-popups allow-popups-to-escape-sandbox" referrerpolicy="no-referrer" title="邮件内容"></iframe>
+              <pre id="mail-text" class="mail-text" hidden></pre>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ============================ 管理后台 ============================ -->
+<div id="admin" class="admin" hidden>
+  <header class="admin-head">
+    <div class="admin-title">
+      <span class="admin-badge"><svg><use href="#i-shield"/></svg></span>
+      <div>
+        <h1>管理后台</h1>
+        <p id="admin-sub">用户、邮箱、域名与全局开关</p>
+      </div>
+    </div>
+    <div class="admin-head-actions">
+      <button class="btn btn-ghost" id="btn-admin-refresh"><svg><use href="#i-refresh"/></svg>刷新</button>
+      <button class="btn btn-ghost" id="btn-admin-back"><svg><use href="#i-x"/></svg>返回收件箱</button>
+    </div>
+  </header>
+
+  <div class="admin-body">
+    <div class="stat-grid" id="admin-stats"></div>
+
+    <section class="admin-card">
+      <div class="admin-card-head">
+        <h2>用户</h2>
+        <div class="admin-search">
+          <svg><use href="#i-search"/></svg>
+          <input id="admin-user-search" placeholder="搜邮箱 / 手机号 / 昵称" autocomplete="off">
+        </div>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="admin-users">
+          <thead>
+            <tr>
+              <th>用户</th><th>手机号</th><th>主邮箱</th><th>邮件</th><th>状态</th><th>最后登录</th><th class="ta-r">操作</th>
+            </tr>
+          </thead>
+          <tbody id="admin-user-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="admin-two">
+      <section class="admin-card">
+        <div class="admin-card-head"><h2>域名</h2></div>
+        <div id="admin-domains" class="admin-domains"></div>
+        <form class="domain-add" id="admin-domain-form">
+          <input id="admin-domain-input" placeholder="加一个域名，如 mail.example.com" autocomplete="off">
+          <button class="btn btn-ghost btn-sm" type="submit">添加</button>
+        </form>
+      </section>
+
+      <section class="admin-card">
+        <div class="admin-card-head"><h2>全局开关</h2></div>
+        <div class="switch-list">
+          <label class="switch-row">
+            <span><b>子地址自动创建</b><small>收到 bili-shop@ 时自动登记成子地址</small></span>
+            <input type="checkbox" id="cfg-subauto">
+          </label>
+          <label class="switch-row">
+            <span><b>仅允许 QQ 邮箱注册</b><small>关闭后任意邮箱都能注册</small></span>
+            <input type="checkbox" id="cfg-requireqq">
+          </label>
+          <label class="switch-row">
+            <span><b>未登记地址进 root 收件箱</b><small>任何人发到 xxx@域名（没建过的地址）都进 root 的「未登记地址」箱，不会被静默丢掉</small></span>
+            <input type="checkbox" id="cfg-catchall">
+          </label>
+          <label class="switch-row">
+            <span><b>手机号短信验证</b><small>短信通道未接入，开启后注册仍需人工审核</small></span>
+            <input type="checkbox" id="cfg-sms">
+          </label>
+          <label class="switch-row">
+            <span><b>自动清理天数</b><small>0 表示永久保留</small></span>
+            <input type="number" id="cfg-keep" min="0" max="3650" step="1" class="num-input">
+          </label>
+        </div>
+        <div class="admin-card-foot">
+          <button class="btn btn-primary btn-sm" id="btn-save-config">保存开关</button>
+        </div>
+        <div class="dropped-list" id="dropped-list" hidden>
+          <div class="dropped-head">被丢弃的信（关掉上面的开关才会有）<span class="pill" id="dropped-count">0</span></div>
+          <div id="dropped-rows"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ 账号设置 ============================ -->
+<dialog id="settings-dialog" class="dialog">
+  <form id="settings-form">
+    <div class="dialog-head">
+      <h3>账号设置</h3>
+      <button type="button" class="icon-btn" id="btn-close-settings"><svg><use href="#i-x"/></svg></button>
+    </div>
+
+    <div class="dialog-body">
+      <div class="field">
+        <span>登录邮箱</span>
+        <div class="bind-row">
+          <input id="set-email" disabled>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-rebind-email">换绑</button>
+        </div>
+        <small>换绑要先用新邮箱发一封确认信，防止填错别人的地址。</small>
+        <div class="rebind-panel" id="panel-email" hidden>
+          <input id="set-new-email" type="email" placeholder="新的 QQ 邮箱" autocomplete="off">
+          <div class="rebind-line">
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-verify-newemail">① 发送验证码</button>
+          </div>
+          <div class="verify-code-row" id="newemail-code-row">
+            <input id="newemail-code" inputmode="numeric" maxlength="6" placeholder="邮件里的 6 位验证码" autocomplete="one-time-code">
+            <button type="button" class="btn btn-primary btn-sm" id="newemail-code-btn">确认验证码</button>
+          </div>
+          <p class="verify-state" id="newemail-state">先把验证码发到新邮箱，再填进来</p>
+          <input id="set-email-password" type="password" placeholder="当前密码，确认是本人" autocomplete="current-password">
+          <div class="rebind-line">
+            <button type="button" class="btn btn-primary btn-sm" id="btn-save-email">确认换绑</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-cancel-email">取消</button>
+          </div>
+        </div>
+      </div>
+      <label class="field">
+        <span>昵称</span>
+        <input id="set-nickname" maxlength="24" placeholder="显示在左上角的名字">
+      </label>
+      <div class="field">
+        <span>手机号</span>
+        <div class="bind-row">
+          <input id="set-phone" disabled placeholder="未绑定">
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-rebind-phone">换绑</button>
+        </div>
+        <small>一人一号，用于找回账号；短信验证通道接通后会改为验证码校验。</small>
+        <div class="rebind-panel" id="panel-phone" hidden>
+          <input id="set-new-phone" inputmode="numeric" placeholder="新的 11 位手机号（留空 = 解绑）" autocomplete="off">
+          <input id="set-phone-password" type="password" placeholder="当前密码，确认是本人" autocomplete="current-password">
+          <div class="rebind-line">
+            <button type="button" class="btn btn-primary btn-sm" id="btn-save-phone">确认换绑</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-cancel-phone">取消</button>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <span>修改密码（不改就留空）</span>
+        <input id="set-old-password" type="password" placeholder="原密码" autocomplete="current-password">
+        <input id="set-new-password" type="password" placeholder="新密码，至少 8 位" autocomplete="new-password" style="margin-top:8px">
+      </div>
+      <div class="dialog-info" id="dialog-info"></div>
+    </div>
+
+    <div class="dialog-foot">
+      <button type="button" class="btn btn-ghost" id="btn-cancel-settings">取消</button>
+      <button type="submit" class="btn btn-primary">保存</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- 新建邮箱 -->
+<dialog id="newbox-dialog" class="dialog">
+  <form id="newbox-form">
+    <div class="dialog-head">
+      <h3>新建邮箱</h3>
+      <button type="button" class="icon-btn" id="btn-close-newbox"><svg><use href="#i-x"/></svg></button>
+    </div>
+    <div class="dialog-body">
+      <div class="seg" role="radiogroup" aria-label="类型">
+        <label class="seg-item"><input type="radio" name="newbox-mode" value="sub" checked><span>子地址</span></label>
+        <label class="seg-item"><input type="radio" name="newbox-mode" value="main"><span>主邮箱</span></label>
+      </div>
+      <label class="field">
+        <span>名字</span>
+        <div class="inputbox">
+          <input id="newbox-name" placeholder="例如 shop" autocomplete="off">
+          <span class="inputbox-suffix" id="newbox-domain">@example.com</span>
+        </div>
+        <div class="addr-preview">完整地址：<b id="newbox-preview">—</b></div>
+        <small class="field-hint" id="newbox-hint">子地址会自动归到主邮箱的收件箱；填 <code>shop</code> 就是 <code>bili-shop@example.com</code>。</small>
+      </label>
+      <div class="dialog-info" id="newbox-info"></div>
+    </div>
+    <div class="dialog-foot">
+      <button type="button" class="btn btn-ghost" id="btn-cancel-newbox">取消</button>
+      <button type="submit" class="btn btn-primary" id="newbox-submit">创建</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite" popover="manual"></div>
+<div class="scrim" id="scrim" hidden></div>
+
+<!-- 一邮多用：把 QQ / Gmail / 163 等外部邮箱的来信转发进来 -->
+<dialog id="ext-dialog" class="dialog">
+  <form id="ext-form">
+    <div class="dialog-head">
+      <h3>接入外部邮箱</h3>
+      <button type="button" class="icon-btn" id="btn-close-ext"><svg><use href="#i-x"/></svg></button>
+    </div>
+    <div class="dialog-body">
+      <div class="ext-intro">
+        在你的 QQ 邮箱 / Gmail / 163 里打开「自动转发」，把地址指向下面生成的专用收件地址，
+        它们的来信就会和本站邮件一起躺在这一个收件箱里，按来源打标签。
+      </div>
+      <label class="field">
+        <span>邮箱类型</span>
+        <select id="ext-provider" class="select"></select>
+      </label>
+      <label class="field">
+        <span>外部邮箱地址</span>
+        <input id="ext-address" type="email" placeholder="例如 123456@qq.com" autocomplete="off">
+      </label>
+      <label class="field">
+        <span>备注（可选）</span>
+        <input id="ext-label" maxlength="24" placeholder="例如 私人 QQ、公司邮箱">
+      </label>
+      <div class="dialog-info" id="ext-info"></div>
+      <div class="ext-tip" id="ext-tip"></div>
+      <div class="ext-existing">
+        <div class="ext-existing-head">已接入</div>
+        <div id="ext-rows"></div>
+      </div>
+    </div>
+    <div class="dialog-foot">
+      <button type="button" class="btn btn-ghost" id="btn-cancel-ext">关闭</button>
+      <button type="submit" class="btn btn-primary">生成收件地址</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

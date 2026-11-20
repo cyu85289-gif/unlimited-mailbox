@@ -1,0 +1,8 @@
+{
+  "domain": "example.com",
+  "port": 8787,
+  "smtpPort": 2525,
+  "maxSizeMB": 25,
+  "keepDays": 0,
+  "token": ""
+}

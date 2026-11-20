@@ -1,0 +1,25 @@
+{
+  "name": "unlimited-mailbox",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "自建无限邮箱：多域名 catch-all 收信 + 多用户网页收件箱 + 子地址归并 + 一邮多用（零依赖）",
+  "license": "MIT",
+  "scripts": {
+    "start": "node --no-warnings server.mjs",
+    "test:mail": "node test/send-test-mail.mjs",
+    "test:edge": "node test/edge-cases.mjs",
+    "test:worker": "node --no-warnings test/simulate-worker.mjs",
+    "test:migrate": "node --no-warnings test/migrate-worker.mjs",
+    "check:dns": "node test/check-dns.mjs",
+    "check:worker": "node scripts/check-worker.mjs",
+    "check:inbox": "node scripts/check-inbox.mjs",
+    "demo": "node test/seed-demo.mjs",
+    "build:worker": "node build-worker.mjs",
+    "deploy": "node scripts/deploy-worker.mjs",
+    "setup": "node scripts/setup-cloudflare.mjs"
+  },
+  "engines": {
+    "node": ">=22.5"
+  }
+}
