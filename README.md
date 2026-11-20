@@ -2,6 +2,8 @@
 
 > 一个域名 → 无限个收件地址 → 每个账号一个独立网页收件箱。
 
+在线体验：<https://exmail.boluoye.top/>
+
 自建的多用户临时邮箱 / 收件箱系统。收信走 Cloudflare Email Routing（推荐）或本机 SMTP，邮件存 Cloudflare D1 或本地 SQLite，网页端提供登录、注册、子地址归并、一邮多用、管理后台等完整功能。
 
 项目**零第三方运行时依赖**：Node 版只用内置模块，Cloudflare 版是单文件 Worker，复制粘贴即可部署。
