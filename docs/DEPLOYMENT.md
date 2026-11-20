@@ -4,7 +4,7 @@
 
 | | 方案 A：Cloudflare（推荐） | 方案 B：本机 / 自有服务器 |
 | --- | --- | --- |
-| 需要 | 域名 + Cloudflare 免费账号 | Node.js ≥ 22.5 的机器 |
+| 需要 | 域名 + Cloudflare 免费账号 | Node.js ≥ 24 的机器 |
 | 能收公网邮件 | ✅ Email Routing 直接投递 | 需要公网 IP + 25 端口，或 Cloudflare Tunnel |
 | 成本 | 0 元 | 电费 / 服务器租金 |
 | 数据位置 | Cloudflare D1 | 本地 `data/mail.db` |
@@ -186,7 +186,7 @@ node test/check-dns.mjs example.com
 
 ## 1. 环境要求
 
-- Node.js **22.5 或更新版本**（推荐 24）。
+- Node.js **24 或更新版本**（22.5–23 需要 `--experimental-sqlite`）。
 - 无需 `npm install`，项目不使用第三方运行时依赖。
 - 数据库使用 Node 内置 `node:sqlite`。
 
@@ -199,7 +199,7 @@ node -v
 ## 2. 启动
 
 ```bash
-git clone https://github.com/your-account/unlimited-mailbox.git
+git clone https://github.com/cyu85289-gif/unlimited-mailbox.git
 cd unlimited-mailbox
 npm start
 ```

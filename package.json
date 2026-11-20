@@ -20,6 +20,6 @@
     "setup": "node scripts/setup-cloudflare.mjs"
   },
   "engines": {
-    "node": ">=22.5"
+    "node": ">=24"
   }
 }

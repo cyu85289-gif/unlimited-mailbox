@@ -32,7 +32,7 @@
 
 | 层 | 技术 |
 | --- | --- |
-| 运行时 | Node.js ≥ 22.5（22.x 需 `--experimental-sqlite`，推荐 24+）或 Cloudflare Workers |
+| 运行时 | Node.js ≥ 24（`node:sqlite` 无需额外参数；22.5–23 需 `--experimental-sqlite`）或 Cloudflare Workers |
 | 数据库 | Cloudflare D1 / `node:sqlite`（Node 内置） |
 | 前端 | 原生 HTML + CSS + JavaScript，无框架、无构建 |
 | 邮件解析 | 自研零依赖 MIME 解析器（`mime.mjs`） |
@@ -42,7 +42,7 @@
 
 ### 方案 A：Cloudflare（推荐，能收真实邮件）
 
-前提：一个自己的域名、一个 Cloudflare 免费账号。完整图文步骤见 **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**。
+前提：一个自己的域名、一个 Cloudflare 免费账号。完整步骤见 **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**。
 
 最短路径：
 
@@ -62,10 +62,10 @@ CF_TOKEN=你的令牌 DOMAIN=example.com ACCESS_TOKEN=你的口令 node scripts/
 
 ### 方案 B：本机 5 分钟
 
-需要 Node.js 22.5 或更新版本（推荐 24+），无需 `npm install`：
+需要 Node.js 24 或更新版本（22.5–23 需加 `--experimental-sqlite`），无需 `npm install`：
 
 ```bash
-git clone https://github.com/your-account/unlimited-mailbox.git
+git clone https://github.com/cyu85289-gif/unlimited-mailbox.git
 cd unlimited-mailbox
 npm start
 ```

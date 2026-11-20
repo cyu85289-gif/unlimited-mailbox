@@ -2,7 +2,7 @@
 
 ## 1. 环境要求
 
-- Node.js **22.5 或更新版本**（推荐 24）。
+- Node.js **24 或更新版本**（22.5–23 需要 `--experimental-sqlite`）。
 - 不需要 `npm install`：项目没有第三方运行时依赖。
 - 可选：Cloudflare 账号与 Wrangler CLI，用于远程部署调试。
 
@@ -16,7 +16,7 @@ npm start
 ### 2.1 启动
 
 ```bash
-git clone https://github.com/your-account/unlimited-mailbox.git
+git clone https://github.com/cyu85289-gif/unlimited-mailbox.git
 cd unlimited-mailbox
 npm start
 ```
